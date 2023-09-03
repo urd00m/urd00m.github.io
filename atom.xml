@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Alan Wang</title>
- <link href="https://urd00m.github.io/atom.xml" rel="self"/>
- <link href="https://urd00m.github.io/"/>
- <updated>2023-09-03T17:47:12-05:00</updated>
- <id>https://urd00m.github.io</id>
+ <link href="http://localhost:4000/atom.xml" rel="self"/>
+ <link href="http://localhost:4000/"/>
+ <updated>2023-09-03T17:58:58-05:00</updated>
+ <id>http://localhost:4000</id>
  <author>
    <name>Alan Wang</name>
    <email>alanlw2@illinois.edu</email>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Creating This Site :D</title>
-   <link href="https://urd00m.github.io/2023/09/02/first-post/"/>
+   <link href="http://localhost:4000/2023/09/02/first-post/"/>
    <updated>2023-09-02T00:00:00-05:00</updated>
-   <id>https://urd00m.github.io/2023/09/02/first-post</id>
+   <id>http://localhost:4000/2023/09/02/first-post</id>
    <content type="html">&lt;p&gt;After much debating I have decided to make a website. This site is built on the Jekyll Lanyon theme, you can find the template &lt;a href=&quot;https://github.com/poole/lanyon&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The bugs &lt;i class=&quot;fa fa-bug&quot; style=&quot;color: #000000;&quot;&gt;&lt;/i&gt;&lt;/p&gt;
