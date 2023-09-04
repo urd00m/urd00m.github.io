@@ -4,7 +4,7 @@
  <title>Alan Wang</title>
  <link href="https://urd00m.github.io/atom.xml" rel="self"/>
  <link href="https://urd00m.github.io/"/>
- <updated>2023-09-03T18:06:44-05:00</updated>
+ <updated>2023-09-03T21:22:49-05:00</updated>
  <id>https://urd00m.github.io</id>
  <author>
    <name>Alan Wang</name>
@@ -27,6 +27,7 @@
   &lt;li&gt;Turns out __ doesn’t do italics but this _ does :\&lt;/li&gt;
   &lt;li&gt;Still need to add the papers I’ve read hehe&lt;/li&gt;
   &lt;li&gt;I also need to upgrade my favicon, it’s a little basic and I used this &lt;a href=&quot;https://favicon.io/&quot;&gt;site&lt;/a&gt; to create it.&lt;/li&gt;
+  &lt;li&gt;Turns out if the config URL is wrong the theme won’t load and the website looks really janky&lt;/li&gt;
   &lt;li&gt;I’m sure there is more somewhere…&lt;/li&gt;
 &lt;/ul&gt;
 
