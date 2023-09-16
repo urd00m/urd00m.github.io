@@ -4,13 +4,32 @@
  <title>Alan Wang</title>
  <link href="https://urd00m.github.io/atom.xml" rel="self"/>
  <link href="https://urd00m.github.io/"/>
- <updated>2023-09-08T14:51:31-05:00</updated>
+ <updated>2023-09-16T15:55:19-05:00</updated>
  <id>https://urd00m.github.io</id>
  <author>
    <name>Alan Wang</name>
    <email>alanlw2@illinois.edu</email>
  </author>
 
+ 
+ <entry>
+   <title>The Darksite</title>
+   <link href="https://urd00m.github.io/2023/09/16/dark-site/"/>
+   <updated>2023-09-16T00:00:00-05:00</updated>
+   <id>https://urd00m.github.io/2023/09/16/dark-site</id>
+   <content type="html">&lt;p&gt;Pictures from visiting the darksite! Very cool!&lt;/p&gt;
+
+&lt;p&gt;Just a note if you click this button -&amp;gt; &lt;strong&gt;&lt;a href=&quot;/2023/09/16/dark-site&quot;&gt;here&lt;/a&gt;&lt;/strong&gt; &amp;lt;- it will dark out the screen to make it easier to the dark pictures see ;)&lt;/p&gt;
+
+&lt;p&gt;THIS TOOK FOREVER TO IMPLEMENT OMG. –&amp;gt; I had to create a custom theme and have it only switch to that dark theme, for some reason the title and my name kept dissappear so that also took some hacking.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/dark1.JPG&quot; alt=&quot;dark 1&quot; /&gt;
+&lt;img src=&quot;/assets/images/dark2.JPG&quot; alt=&quot;dark 2&quot; /&gt;
+&lt;img src=&quot;/assets/images/dark3.JPG&quot; alt=&quot;dark 3&quot; /&gt;
+&lt;img src=&quot;/assets/images/dark4.JPG&quot; alt=&quot;dark 4&quot; /&gt;&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Creating This Site :D</title>
