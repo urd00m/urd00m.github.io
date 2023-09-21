@@ -4,13 +4,32 @@
  <title>Alan Wang</title>
  <link href="https://urd00m.github.io/atom.xml" rel="self"/>
  <link href="https://urd00m.github.io/"/>
- <updated>2023-09-16T15:55:19-05:00</updated>
+ <updated>2023-09-20T21:23:52-05:00</updated>
  <id>https://urd00m.github.io</id>
  <author>
    <name>Alan Wang</name>
    <email>alanlw2@illinois.edu</email>
  </author>
 
+ 
+ <entry>
+   <title>First Olympic Triathlon</title>
+   <link href="https://urd00m.github.io/2023/09/17/first-olympic/"/>
+   <updated>2023-09-17T00:00:00-05:00</updated>
+   <id>https://urd00m.github.io/2023/09/17/first-olympic</id>
+   <content type="html">&lt;p&gt;First olympic triathlon!&lt;/p&gt;
+
+&lt;p&gt;Final time: 3:02:13.8 &lt;br /&gt;
+Swim time: 27:38.48&lt;br /&gt;
+T1: 1:51.73&lt;br /&gt;
+Bike time: 1:24:14.66&lt;br /&gt;
+T2: 25.45&lt;br /&gt;
+Run: 1:08:03.48&lt;br /&gt;
+Link: &lt;a href=&quot;https://runsignup.com/Race/Results/147537/IndividualResult/qkDd?resultSetId=406037#U79273453&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The energy drink I had started to come up on the run and that completely tanked my performance on the run :(. For the future I know I need to bring some more water to dilute it so that doesn’t happen again (target pace was 8 minute miles but ended up being around ~11). My swim and bike times were right where I wanted them to be though.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>The Darksite</title>
