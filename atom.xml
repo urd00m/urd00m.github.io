@@ -4,7 +4,7 @@
  <title>Alan Wang</title>
  <link href="https://urd00m.github.io/atom.xml" rel="self"/>
  <link href="https://urd00m.github.io/"/>
- <updated>2023-11-22T11:44:13+01:00</updated>
+ <updated>2023-12-04T14:03:38-06:00</updated>
  <id>https://urd00m.github.io</id>
  <author>
    <name>Alan Wang</name>
@@ -15,7 +15,7 @@
  <entry>
    <title>Omegaball Champions</title>
    <link href="https://urd00m.github.io/2023/11/22/omegaball/"/>
-   <updated>2023-11-22T00:00:00+01:00</updated>
+   <updated>2023-11-22T00:00:00-06:00</updated>
    <id>https://urd00m.github.io/2023/11/22/omegaball</id>
    <content type="html">&lt;p&gt;My team Ankle Insurance is the first and only UIUC omega ball intramural champions winning the finals with a clutch last minute goal to make it 4-3-3. :D&lt;/p&gt;
 
@@ -26,7 +26,7 @@
  <entry>
    <title>First Olympic Triathlon</title>
    <link href="https://urd00m.github.io/2023/09/17/first-olympic/"/>
-   <updated>2023-09-17T00:00:00+02:00</updated>
+   <updated>2023-09-17T00:00:00-05:00</updated>
    <id>https://urd00m.github.io/2023/09/17/first-olympic</id>
    <content type="html">&lt;p&gt;First olympic triathlon!&lt;/p&gt;
 
@@ -45,7 +45,7 @@ Link: &lt;a href=&quot;https://runsignup.com/Race/Results/147537/IndividualResul
  <entry>
    <title>The Darksite</title>
    <link href="https://urd00m.github.io/2023/09/16/dark-site/"/>
-   <updated>2023-09-16T00:00:00+02:00</updated>
+   <updated>2023-09-16T00:00:00-05:00</updated>
    <id>https://urd00m.github.io/2023/09/16/dark-site</id>
    <content type="html">&lt;p&gt;Pictures from visiting the darksite! Very cool!&lt;/p&gt;
 
@@ -64,7 +64,7 @@ Link: &lt;a href=&quot;https://runsignup.com/Race/Results/147537/IndividualResul
  <entry>
    <title>Creating This Site :D</title>
    <link href="https://urd00m.github.io/2023/09/02/first-post/"/>
-   <updated>2023-09-02T00:00:00+02:00</updated>
+   <updated>2023-09-02T00:00:00-05:00</updated>
    <id>https://urd00m.github.io/2023/09/02/first-post</id>
    <content type="html">&lt;p&gt;After much debating I have decided to make a website. This site is built on the Jekyll Lanyon theme, you can find the template &lt;a href=&quot;https://github.com/poole/lanyon&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
