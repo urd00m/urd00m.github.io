@@ -4,7 +4,7 @@
  <title>Alan Wang</title>
  <link href="https://urd00m.github.io/atom.xml" rel="self"/>
  <link href="https://urd00m.github.io/"/>
- <updated>2024-10-22T16:24:05-05:00</updated>
+ <updated>2024-11-07T14:07:30-06:00</updated>
  <id>https://urd00m.github.io</id>
  <author>
    <name>Alan Wang</name>
@@ -13,12 +13,241 @@
 
  
  <entry>
-   <title>Intel SGX</title>
-   <link href="https://urd00m.github.io/2024/10/22/sgx.html"/>
+   <title>Intel SGX and MIT's Sanctum</title>
+   <link href="https://urd00m.github.io/reading/2024/10/22/sgx.html"/>
    <updated>2024-10-22T00:00:00-05:00</updated>
-   <id>https://urd00m.github.io/2024/10/22/sgx</id>
-   <content type="html">&lt;p&gt;Future tag – TEE Reading&lt;/p&gt;
+   <id>https://urd00m.github.io/reading/2024/10/22/sgx</id>
+   <content type="html">&lt;p&gt;Future tags – TEE Reading SGX Sanctum&lt;/p&gt;
 
+&lt;p&gt;Reading Material / Sources:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://people.csail.mit.edu/devadas/pubs/part_1.pdf&quot;&gt;MIT CSAIL Secure Processors Part 1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://people.csail.mit.edu/devadas/pubs/part_2.pdf&quot;&gt;MIT CSAIL Secure Processors Part 2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.quarkslab.com/overview-of-intel-sgx-part-1-sgx-internals.html&quot;&gt;SGX Overview&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://people.csail.mit.edu/devadas/pubs/ascend-stc12.pdf&quot;&gt;Ascend Processor&lt;/a&gt; Just a funny aside, this work is from my advisor Professor Chris Fletcher in 2012. During that time, I was in 3rd grade wrecking multiplication table quizzes lol.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://sgx.fail/files/sgx.fail.pdf&quot;&gt;SGX.fail&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://dl.acm.org/doi/pdf/10.1145/3342195.3387532&quot;&gt;Keystone?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;general-terms-and-definitions&quot;&gt;General Terms and Definitions&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Secure remote computation problem&lt;/strong&gt;: Overarching goal is to achieve secure remote computation which is defined as executing software on a remote computer owned and maintained by an untrusted third party with some confidentiality and integrity guarantees. Intel SGX is one of the latest (not anymore we have TDX and others, but at the time of Srini writing the document it was) to try to tackle this problem through trusted hardware.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Software attestation&lt;/strong&gt;: by cryptographically hashing the components of the enclave you can create a trust measurement. Only if this trust measurement matches what the remote party “trusts” does the remote party send over the confidential information. The malicious host can of course put any software they want in the enclave, however, its trust measurement won’t be correct and thus the remote party won’t send over its secret information.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/tee/trust-chain.png&quot; alt=&quot;trust chain&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;hardware&quot;&gt;Hardware&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Intel Management Engine (ME)&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;I remember this was considered ring -3 (SMM is ring -2)&lt;/li&gt;
+  &lt;li&gt;basically always on and offers Intel complete control over Intel machines (even if they are turned off, the ME is still powered on)&lt;/li&gt;
+  &lt;li&gt;Responsible for a bunch of hardware resource management and power iirc&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;threat-model-for-tees&quot;&gt;Threat model for TEEs&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;physical attacks out of scope&lt;/li&gt;
+  &lt;li&gt;power attacks out of scope&lt;/li&gt;
+  &lt;li&gt;all privilege level software attacks in scope. Reasoning: SMM code can be compromised (has been demonstrated) therefore it is possible for an attacker to gain access to any exception level.&lt;/li&gt;
+  &lt;li&gt;software attacks on peripherals&lt;/li&gt;
+  &lt;li&gt;address translation attacks&lt;/li&gt;
+  &lt;li&gt;caching timing attacks (I guess this includes broadly all side channel attacks)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;general-notes-on-tees&quot;&gt;General Notes on TEEs&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;IBM 4765 Secure Coprocessor&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Has defenses against physical attacks. E.g. sensors to detect tampering. This means it can actually withstand some physical attacks&lt;/li&gt;
+  &lt;li&gt;Encapsulated an entire computing system within a tamper resitant environment.&lt;/li&gt;
+  &lt;li&gt;Supports software attestation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Arm TrustZone&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;secure world&lt;/em&gt; and &lt;em&gt;normal world&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;secure container manages its own page tables&lt;/li&gt;
+  &lt;li&gt;complete separation is not enforced between worlds. E.g. the caches are not completely separated allowing for cache timing attacks.&lt;/li&gt;
+  &lt;li&gt;No software attestation capabilities.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Execute-Only Memory (XOM) Architecture:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Execute sensitive code and data in isolated containers managed by untrusted host software&lt;/li&gt;
+  &lt;li&gt;Integration of encryption in the processor’s memory controller to block physical DRAM attacks. Vulnerable to replay attacks though. Memory access pattern is not protected as well, opening the door for cache timing attacks.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Trusted Platform Module:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Relies on auxiliary tamper resitant chip. No modifications needed for the CPU. This is easy to implement but brings weak security guarantees&lt;/li&gt;
+  &lt;li&gt;TPM relies on software to report its own crytpographic hash. During the boot each stage reports the next stage’s cryptographic hash. This relies on firmware that loads the first stage bootloader to be “correct”.&lt;/li&gt;
+  &lt;li&gt;Security can be thwarted by an attacker who can re-flash the computer’s firmware&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Intel’s Trusted Execution Technology (TXT):&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;TPM’s software attestation model + tamper resitant chip.&lt;/li&gt;
+  &lt;li&gt;Container has exclusive control over the CPU while active&lt;/li&gt;
+  &lt;li&gt;Signatures cannot be revoked and thus when vulnerabilities were found, Intel had to change TXT’s software attestation model&lt;/li&gt;
+  &lt;li&gt;Vulnerable to an SMM attacker (the warm resets performed don’t affect the SMM)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Aegis Secure Processor:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Relies on security kernel inside the OS to isolate containers&lt;/li&gt;
+  &lt;li&gt;Uses processor features to isolate the secure kernel from the untrusted kernel parts&lt;/li&gt;
+  &lt;li&gt;Vulnerable to cache timing attacks&lt;/li&gt;
+  &lt;li&gt;One range is encrypted and another range is HMAC’d. They can overlap. Provides defense against physical DRAM attacks.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Bastion Architecture:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Trusted hypervisor to provide secure containers to run applications in untrusted operating systems&lt;/li&gt;
+  &lt;li&gt;Firmware is not trusted. Hypervisor is hashed and sent as part of the trust measurement used in the software attestation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Intel’s Software Guard Extensions (SGX):&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;No modifications to the processor’s critical execution path&lt;/li&gt;
+  &lt;li&gt;Nothing is trusted in the software stack (e.g. firmware, hypervisor, or OS)&lt;/li&gt;
+  &lt;li&gt;SGX’s TCB includes microcode and a few &lt;em&gt;privileged&lt;/em&gt; containers&lt;/li&gt;
+  &lt;li&gt;Untrusted OS manages the containers page tables. Security is preserved by having the TLB miss hanlder reject translations that don’t belong to the container&lt;/li&gt;
+  &lt;li&gt;Vulnerable to cache timing attacks&lt;/li&gt;
+  &lt;li&gt;Provides similar physical attack guarantees to Aegis and Bastion.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Sanctum&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Relies on a trusted security monitor which is the first piece of firmware executed by the processor. This monitor verifies the OS’s resource allocation decisions.&lt;/li&gt;
+  &lt;li&gt;Each container maintains its own page table mappings to allocated DRAM regions + handles its own page faults&lt;/li&gt;
+  &lt;li&gt;No protection from physical attacks. Combined with mechanisms from Aegis or Ascend for physical attack defenses.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Ascend or Phantom&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Introduce practical implementions of ORAM making the designs resilent to attackers probing the DRAM memory bus (learning secrets through the DRAM access pattern)&lt;/li&gt;
+  &lt;li&gt;Orthogonal to the other schemes mentioned above&lt;/li&gt;
+  &lt;li&gt;A combination of Ascend, Sanctum, and Aegis can create a design resilent to software and physical DRAM attacks&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;intel-sgx&quot;&gt;Intel SGX&lt;/h1&gt;
+
+&lt;p&gt;I very much like the statement from the Secure Processors Part 1 text: “While Intel’s Software Guard Extensions fall short of this ideal (as discussed in Part II of this work), the system does present a very attractive programming model: &lt;strong&gt;a private process with privacy and integrity guarantees assuming the software of the process itself is not vulnerable.&lt;/strong&gt;” (this sounds a lot like the &lt;a href=&quot;https://cwfletcher.github.io/content/research/2023.ccs.declassiflow.paper.pdf&quot;&gt;declassiflow&lt;/a&gt; guarantee, i.e. as long as the software is secure, the system will follow the rules.&lt;/p&gt;
+
+&lt;h2 id=&quot;sgx-physical-memory-organization&quot;&gt;SGX Physical Memory Organization&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Enclave&lt;/strong&gt;: The protected environment that contains the sensitive code and data. The enclave is isolated from untrusted software via trust computing and through software attestation. Each enclave is design to protect against malicious software and some physical attacks.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Processor Reserved Memory (PRM)&lt;/strong&gt;: This is a subset of DRAM and can’t be accessed by other software (this includes system software and firmware) and periphals (via DMA).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Enclave Page Cache (EPC)&lt;/strong&gt;: Contents of enclaves and associated data structures are stored here. Subset of PRM. Split into 4 KB pages. This is managed, via special SGX instructions, by system software (hypervisor or OS). Upon allocation of an EPC page, the page is also initialized by (generally) copying from a non-PRM memory page; this is to allow system software to insert the initial code and data to the new EPC pages.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Enclave Page Cache Map (EPCM)&lt;/strong&gt;: System software’s EPC allocation decisions are stored here. One entry per EPC page. Only used for security checks. Contains information about which enclave owns the EPC page to prevent enclaves from interacting with other enclave’s pages.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SGX Enclave Control Structure (SECS)&lt;/strong&gt;: Meta data is stored here. Synonymous to the identity of an enclave. Exclusively used by the SGX implementation. Enclave code is also prevented from acessing SECS and it isn’t mapped in the processors VA space. The trust measurement is also stored here.&lt;/p&gt;
+
+&lt;p&gt;SGX Enclave Attributes are stored here which heavily influence the enclave’s execution environment.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/tee/sgx-mem-layout.png&quot; alt=&quot;SGX memory layout&quot; /&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;/assets/images/tee/pmh-modifications.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;sgx-enclave-memory-layout&quot;&gt;SGX Enclave Memory Layout&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Enclave Linear Address Range (ELRANGE)&lt;/strong&gt;: The range of an enclave’s virtual address that maps to EPC pages. VA’s outside this range map to non-EPC pages (unprotected).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Address Translation Managed by System Software&lt;/strong&gt;: Since the translation is still managed by system software SGX is open to translation attacks. Per the authors, a lot of SGX complexity is due to the need to mitigate this.&lt;/p&gt;
+
+&lt;p&gt;When a EPC page is allocated, the VA is recorded in the EPCM. When the translation is an EPC page the orginal virtual address is checked to match the one recorded in the EPCM entry. The access permissions stored in the EPCM also overwrite the access permissions from the page table entry.&lt;/p&gt;
+
+&lt;p&gt;Lastly, VAs in ELRANGE are ensured by the hardware to be mapped to EPC pages.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Thead Control Structure (TCS)&lt;/strong&gt;: Allocated for each logical processor that executes an enclave’s code to support multi-core processors.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;State Save Area (SSA)&lt;/strong&gt;: After an exception or interrupt, which require a privilege level switch, the enclave’s context is stored in this structure to prevent exposing its information.&lt;/p&gt;
+
+&lt;h2 id=&quot;sgx-enclave-life-cycle&quot;&gt;SGX Enclave Life Cycle&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Launch Enclave (LE)&lt;/strong&gt;: Used to obtain an EINIT Token Structure that is passed the EINIT instruction to mark an enclave’s SECS as initialized. The LE can be initialized without an EINIT token and is cryptographically signed with an Intel key that is harcoded in the SGX implementation. All code and data must be loaded in to the enclave before the enclave is initialized. &lt;strong&gt;This is argued to be unnecessary and should be removed from the SGX implementation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/tee/enclave-lifecycle.png&quot; alt=&quot;Enclave Life Cycle&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;epc-page-eviction&quot;&gt;EPC Page Eviction&lt;/h2&gt;
+
+&lt;h4 id=&quot;general-info&quot;&gt;General Info&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Performed by the system software that does page swapping (OS or hypervisor)&lt;/li&gt;
+  &lt;li&gt;Symmetric key cryptography is used to protect the confidentiality and integrity of evicted EPC pages. Nonces are stored in &lt;em&gt;Version Arrays (VA)&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;TLBs must not contain the address translation of evicted EPC pages&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;“One of the least promoted accomplishments of SGX is that it does not add any security checks to the memory execution units (§ 2.9.4, § 2.10). Instead, SGX’s access control checks occur after an address translation (§ 2.5) is performed, right before the translation result is written into the TLBs (§ 2.11.5).”&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Interesting: when paging back in a EPC page, the SGX implementation will clear the least significant 12 bits of CR2 (the 12 LSBs from the faulting address) as they are not necessary for the OS to do its job and make it more difficult for the OS to infer information.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;tlbs&quot;&gt;TLBs&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Flushed upon enclave exit&lt;/li&gt;
+  &lt;li&gt;When an EPC page is evicted, all logical processors that execute that enclave’s code must exit –&amp;gt; wiping the respective TLBs&lt;/li&gt;
+  &lt;li&gt;This exits are triggered by system software (untrusted), therefore, before the EPCM is marked as free the SGX implementation has to ensure all related TLBs have been flushed.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;failure-of-sgx&quot;&gt;Failure of SGX&lt;/h1&gt;
+
+&lt;p&gt;While SGX offers a variety of defenses against software and physical attacks (“direct attacks”), it fails to provide software isolation. E.g. see side channel attacks.&lt;/p&gt;
+
+&lt;h2 id=&quot;physical-attacks&quot;&gt;Physical Attacks&lt;/h2&gt;
+&lt;p&gt;Due to lack of information there are not a lot of definitive answers on this front.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Protected memory (EPC) is protected against DRAM bus tapping attacks (confidentiality, integrity, and freshness)&lt;/li&gt;
+  &lt;li&gt;DRAM access pattern can be leaked as it is not protected&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Vulnerable to cache timing attacks&lt;/strong&gt;. No simple modification to provably protect SGX against cache timing side channels&lt;/li&gt;
+  &lt;li&gt;No mentions about the SMBus which connects the ME to various components on the motherboard&lt;/li&gt;
+  &lt;li&gt;Defenses aimed at increasing the cost of chip attacks&lt;/li&gt;
+  &lt;li&gt;Threat model excludes power analysis attacks and other side-channel attacks&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;privileged-software-attacks&quot;&gt;Privileged Software Attacks&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Since SGX is implemented in microcode it sits at a higher level than system software.&lt;/li&gt;
+  &lt;li&gt;SGX regulates all interactions between non-enclave code and enclave code&lt;/li&gt;
+  &lt;li&gt;Hyperthreading is not disabled! By scheduling an attacker on the same physical core of a victim, the attacker can reveal a lot of secrets like instructions executed or memory access pattern&lt;/li&gt;
+  &lt;li&gt;Does not protect against passive address translation attacks – leaking the enclave’s memory access pattern&lt;/li&gt;
+  &lt;li&gt;No mention of uncore PEBS counters. They are vulnerable to side channel attacks via performance counters but the exact damage is unclear&lt;/li&gt;
+  &lt;li&gt;The enclave’s branch history is vulnerable&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;mits-sanctum&quot;&gt;MIT’s Sanctum&lt;/h1&gt;
+&lt;p&gt;Same guarantees as Intel SGX but also protects against software attacks that can infer the memory access pattern. 
+Implemented in trusted software (doesn’t use cryptographic keys) which is easier to understand / analyze compared to Intel’s microcode. 
+Sanctum is on the Rocket RISC-V cores which are open sourced and can be analyzed by all researchers. 
+Sanctum adds hardware at interfaces between general building blocks to enforce invariants that uphold Sanctum’s security policy.&lt;/p&gt;
+
+&lt;h2 id=&quot;threat-model&quot;&gt;Threat Model&lt;/h2&gt;
+&lt;p&gt;All software outside the enclave is considered hostile. 
+The attacker can analyze passively collected data, and mount active attacks such as direct or DMA memory probing, and cache timing attacks. 
+Sanctum does not protect software that leaks its own secrets or “by timing their operations”. 
+I interpret this as Sanctum is not free from all side channels but because of the cache partitioning scheme employed the enclaves are protected from cache side channels. 
+Moreover, Sanctum assumes correct hardware (i.e. doesn’t protect against rowhammer).&lt;/p&gt;
+
+&lt;p&gt;I specifically want to poke a hole in one of their assumptions:
+Sanctum also does not defend against physical attacks and consider software attacks that rely on sensor data to be physical attacks. 
+Specifically, “For example, Sanctum does not address information leakage due to power variations, because software would require a temperature or current sensor to carry out such an attack.” 
+I do not believe this is a valid assumption anymore due to attacks like Hertzbleed that exploit timing variations that are a result of clock frequency which is a result of power consumption. 
+It seems like this is not protected under Sanctum either (there is an indirect assumption that power attacks rely on sensor data).&lt;/p&gt;
+
+&lt;h2 id=&quot;sanctum-vs-sgx-differences&quot;&gt;Sanctum vs. SGX Differences&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/tee/sanctum-programming-model.png&quot; alt=&quot;Sanctum Programming Model&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The only main difference with SGX is that microcode is replaced with the security monitor which runs at the highest privilege level in RISC-V. 
+Additionally, “Sanctum improves upon SGX by isolating cache sets and page tables used to access an enclave’s private memory, as well as microarchitectural state updated as a side effect of enclave execution. The improved isolation defeats attacks that exploit the memory access pattern information leaks that result from cache and page table sharing, as well as attacks attempting to infer private control flow information from observing core state after enclave execution.”
+Another key difference is that faults are redirected to the enclaves’s fault handler, this removes information leakage from fault timing attacks that SGX is vulnerable to. 
+The key idea behind Sanctum is that software inside the enclave that does its computation and accesses its data inside the enclave is protected from any attack mounted by software outside the enclave. 
+&lt;strong&gt;Though I would argue the above is no longer true in the context of Hertzbleed style attacks&lt;/strong&gt;.
+There are definitely more implementation differences, but I think I’m currently only interested in the higher level differences between the two.&lt;/p&gt;
 </content>
  </entry>
  
