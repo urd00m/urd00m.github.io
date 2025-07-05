@@ -4,7 +4,7 @@
  <title>Alan Wang</title>
  <link href="https://urd00m.github.io/atom.xml" rel="self"/>
  <link href="https://urd00m.github.io/"/>
- <updated>2025-06-22T21:57:59-05:00</updated>
+ <updated>2025-07-05T14:44:07-05:00</updated>
  <id>https://urd00m.github.io</id>
  <author>
    <name>Alan Wang</name>
@@ -17,7 +17,8 @@
    <link href="https://urd00m.github.io/2024/10/22/peek-a-walk.html"/>
    <updated>2024-10-22T00:00:00-05:00</updated>
    <id>https://urd00m.github.io/2024/10/22/peek-a-walk</id>
-   <content type="html">&lt;p&gt;peek-a-walk info (personal post)&lt;/p&gt;
+   <content type="html">&lt;h2 id=&quot;paper-here&quot;&gt;Paper: &lt;a href=&quot;/assets/papers/peek-a-walk.pdf&quot;&gt;here&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;code-here&quot;&gt;Code: &lt;a href=&quot;https://github.com/FPSG-UIUC/Peek-a-Walk&quot;&gt;here&lt;/a&gt;&lt;/h2&gt;
 </content>
  </entry>
  
