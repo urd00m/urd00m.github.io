@@ -4,7 +4,7 @@
  <title>Alan Wang</title>
  <link href="https://urd00m.github.io/atom.xml" rel="self"/>
  <link href="https://urd00m.github.io/"/>
- <updated>2025-10-14T08:05:22+08:00</updated>
+ <updated>2025-10-21T12:24:13-07:00</updated>
  <id>https://urd00m.github.io</id>
  <author>
    <name>Alan Wang</name>
@@ -15,7 +15,7 @@
  <entry>
    <title>Peek-a-Walk</title>
    <link href="https://urd00m.github.io/2024/10/22/peek-a-walk.html"/>
-   <updated>2024-10-22T00:00:00+08:00</updated>
+   <updated>2024-10-22T00:00:00-07:00</updated>
    <id>https://urd00m.github.io/2024/10/22/peek-a-walk</id>
    <content type="html">&lt;h2 id=&quot;paper-here&quot;&gt;Paper: &lt;a href=&quot;/assets/papers/peek-a-walk.pdf&quot;&gt;here&lt;/a&gt;&lt;/h2&gt;
 &lt;h2 id=&quot;code-here&quot;&gt;Code: &lt;a href=&quot;https://github.com/FPSG-UIUC/Peek-a-Walk&quot;&gt;here&lt;/a&gt;&lt;/h2&gt;
@@ -25,7 +25,7 @@
  <entry>
    <title>Upgrading the Blog</title>
    <link href="https://urd00m.github.io/general/2024/10/22/blog-updates.html"/>
-   <updated>2024-10-22T00:00:00+08:00</updated>
+   <updated>2024-10-22T00:00:00-07:00</updated>
    <id>https://urd00m.github.io/general/2024/10/22/blog-updates</id>
    <content type="html">&lt;p&gt;I finally got around to doing some website updates as a break from research.
 I’ve been wanting to do some website updates for some time. 
@@ -69,7 +69,7 @@ It will be nice to be able to upload notes here now to just be more easily acces
  <entry>
    <title>Omegaball Champions</title>
    <link href="https://urd00m.github.io/general/2023/11/22/omegaball.html"/>
-   <updated>2023-11-22T00:00:00+08:00</updated>
+   <updated>2023-11-22T00:00:00-08:00</updated>
    <id>https://urd00m.github.io/general/2023/11/22/omegaball</id>
    <content type="html">&lt;p&gt;My team Ankle Insurance is the first and only UIUC omega ball intramural champions winning the finals with a clutch last minute goal to make it 4-3-3. :D&lt;/p&gt;
 
@@ -80,7 +80,7 @@ It will be nice to be able to upload notes here now to just be more easily acces
  <entry>
    <title>First Olympic Triathlon</title>
    <link href="https://urd00m.github.io/general/2023/09/17/first-olympic.html"/>
-   <updated>2023-09-17T00:00:00+08:00</updated>
+   <updated>2023-09-17T00:00:00-07:00</updated>
    <id>https://urd00m.github.io/general/2023/09/17/first-olympic</id>
    <content type="html">&lt;p&gt;First olympic triathlon!&lt;/p&gt;
 
@@ -99,7 +99,7 @@ Link: &lt;a href=&quot;https://runsignup.com/Race/Results/147537/IndividualResul
  <entry>
    <title>The Darksite</title>
    <link href="https://urd00m.github.io/general/2023/09/16/dark-site.html"/>
-   <updated>2023-09-16T00:00:00+08:00</updated>
+   <updated>2023-09-16T00:00:00-07:00</updated>
    <id>https://urd00m.github.io/general/2023/09/16/dark-site</id>
    <content type="html">&lt;p&gt;Pictures from visiting the darksite! Very cool!&lt;/p&gt;
 
@@ -118,7 +118,7 @@ Link: &lt;a href=&quot;https://runsignup.com/Race/Results/147537/IndividualResul
  <entry>
    <title>Creating This Site :D</title>
    <link href="https://urd00m.github.io/general/2023/09/02/first-post.html"/>
-   <updated>2023-09-02T00:00:00+08:00</updated>
+   <updated>2023-09-02T00:00:00-07:00</updated>
    <id>https://urd00m.github.io/general/2023/09/02/first-post</id>
    <content type="html">&lt;p&gt;After much debating I have decided to make a website. This site is built on the Jekyll Lanyon theme, you can find the template &lt;a href=&quot;https://github.com/poole/lanyon&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
