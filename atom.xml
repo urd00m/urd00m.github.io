@@ -4,7 +4,7 @@
  <title>Alan Wang</title>
  <link href="https://urd00m.github.io/atom.xml" rel="self"/>
  <link href="https://urd00m.github.io/"/>
- <updated>2026-05-06T00:26:48-07:00</updated>
+ <updated>2026-05-06T00:37:22-07:00</updated>
  <id>https://urd00m.github.io</id>
  <author>
    <name>Alan Wang</name>
@@ -13,12 +13,37 @@
 
  
  <entry>
+   <title>Research Advice</title>
+   <link href="https://urd00m.github.io/research/2026/05/05/research-advice.html"/>
+   <updated>2026-05-05T00:00:00-07:00</updated>
+   <id>https://urd00m.github.io/research/2026/05/05/research-advice</id>
+   <content type="html">&lt;p&gt;Stub for research advice :D. 
+I’ll accumulate it here as I go.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Fellowship Journey</title>
+   <link href="https://urd00m.github.io/2026/05/05/fellowship-journey.html"/>
+   <updated>2026-05-05T00:00:00-07:00</updated>
+   <id>https://urd00m.github.io/2026/05/05/fellowship-journey</id>
+   <content type="html">&lt;p&gt;In progress. Don’t know exactly what I want to do here yet.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>Peek-a-Walk</title>
-   <link href="https://urd00m.github.io/2024/10/22/peek-a-walk.html"/>
+   <link href="https://urd00m.github.io/research/2024/10/22/peek-a-walk.html"/>
    <updated>2024-10-22T00:00:00-07:00</updated>
-   <id>https://urd00m.github.io/2024/10/22/peek-a-walk</id>
+   <id>https://urd00m.github.io/research/2024/10/22/peek-a-walk</id>
    <content type="html">&lt;h2 id=&quot;paper-here&quot;&gt;Paper: &lt;a href=&quot;/assets/papers/peek-a-walk.pdf&quot;&gt;here&lt;/a&gt;&lt;/h2&gt;
 &lt;h2 id=&quot;code-here&quot;&gt;Code: &lt;a href=&quot;https://github.com/FPSG-UIUC/Peek-a-Walk&quot;&gt;here&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Going to put my thoughts here potentially about the peek-a-walk stuff.&lt;/p&gt;
 </content>
  </entry>
  
